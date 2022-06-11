@@ -21,6 +21,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'Pocco81/AutoSave.nvim'
 Plug 'sbdchd/neoformat'
 Plug 'jghauser/mkdir.nvim'
+Plug ('ms-jpq/chadtree', { ['do'] = 'python3 -m chadtree deps' })
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'
