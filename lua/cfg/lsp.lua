@@ -17,11 +17,12 @@ local on_attach = function (_, buf)
     set(buf, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     set(buf, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     set(buf, 'n', '<leader>ds', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-    vim.cmd [[
-	  augroup fmt autocmd!
-		  autocmd BufWritePre * undojoin | Neoformat
-  	augroup END
-  ]]
+ -- TODO: Put the formatting step here  
+    -- vim.cmd [[
+	--  augroup fmt autocmd!
+	--	  autocmd BufWritePre * undojoin | Neoformat
+  	-- augroup END
+ -- ]]
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -29,11 +30,6 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local servers = {
   tsserver = {},
-  denols = {
-	  init_options = {
-		  lint = true,
-	  },
-  },
   bashls = {},
   cssls = {},
   dockerls = {},
@@ -137,3 +133,6 @@ cmp.setup {
     	})
 }
 
+vim.diagnostic.config({
+    virtual_text = false
+})

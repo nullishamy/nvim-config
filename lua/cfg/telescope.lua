@@ -12,6 +12,6 @@ require('telescope').setup {
 }
 
 map("", "<Leader>f", ":lua require('telescope.builtin').find_files()<cr>")
-map("", "<Leader>c", ":CHADopen --always-focus<cr>")
+map("", "<Leader>g", ":CHADopen --always-focus<cr>")
 map("", "<Leader>o", ":lua require('telescope.builtin').buffers()<cr>")
 

@@ -3,7 +3,7 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
 -- Theming
-Plug 'navarasu/onedark.nvim'
+Plug 'sainnhe/edge'
 
 -- LSP
 Plug 'neovim/nvim-lspconfig'
@@ -17,9 +17,12 @@ Plug "williamboman/nvim-lsp-installer"
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
+-- Diagnostics
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
+
 -- Util
 Plug 'Pocco81/AutoSave.nvim'
-Plug 'sbdchd/neoformat'
 Plug 'jghauser/mkdir.nvim'
 Plug ('ms-jpq/chadtree', { ['do'] = 'python3 -m chadtree deps' })
 
