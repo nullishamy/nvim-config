@@ -1,5 +1,2 @@
-local chadtree_settings = { 
-
-}
-
-vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
+-- Open CHAD on launch
+vim.cmd [[ autocmd VimEnter * :CHADopen --always-focus ]]
