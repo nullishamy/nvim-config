@@ -17,7 +17,7 @@ local on_attach = function (_, buf)
     set(buf, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     set(buf, '', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     set(buf, 'n', '<leader>ds', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
- -- TODO: Put the formatting step here  
+ -- TODO: Put the formatting step here
     -- vim.cmd [[
 	--  augroup fmt autocmd!
 	--	  autocmd BufWritePre * undojoin | Neoformat
@@ -47,7 +47,7 @@ local servers = {
           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
           version = 'LuaJIT',
           -- Setup your lua path
-          path = vim.split(package.path, ';'), 
+          path = vim.split(package.path, ';'),
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global

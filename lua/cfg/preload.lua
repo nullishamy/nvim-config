@@ -25,6 +25,7 @@ Plug 'folke/trouble.nvim'
 Plug 'Pocco81/AutoSave.nvim'
 Plug 'jghauser/mkdir.nvim'
 Plug ('ms-jpq/chadtree', { ['do'] = 'python3 -m chadtree deps' })
+Plug 'numToStr/Comment.nvim'
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'
