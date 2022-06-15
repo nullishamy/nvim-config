@@ -1,7 +1,6 @@
 local map = require("utils").map
 
 require("trouble").setup {
-    auto_close = true,
     auto_open = true,
 }
 

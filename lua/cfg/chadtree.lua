@@ -1,2 +1,2 @@
--- Open CHAD on launch
-vim.cmd [[ autocmd VimEnter * :CHADopen --always-focus ]]
+-- Open CHAD on launch, without giving it focus
+vim.cmd [[ autocmd VimEnter * :CHADopen --nofocus ]]
