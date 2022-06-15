@@ -83,6 +83,16 @@ require('rust-tools').setup {
     autostart = true,
     on_attach = on_attach,
     capabilities = capabilities
+  },
+  tools = {
+    autoSetHints = false,
+    inlay_hints = {
+        show_parameter_hints = false,
+        show_variable_name = false,
+        on_initialized = function()
+            require('rust-tools.inlay_hints').disable_inlay_hints()
+        end
+    }
   }
 }
 
