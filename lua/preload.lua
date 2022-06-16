@@ -16,6 +16,7 @@ Plug 'L3MON4D3/LuaSnip'
 Plug "williamboman/nvim-lsp-installer"
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'glepnir/lspsaga.nvim'
 
 -- Diagnostics
 Plug 'kyazdani42/nvim-web-devicons'
@@ -24,8 +25,8 @@ Plug 'folke/trouble.nvim'
 -- Util
 Plug 'Pocco81/AutoSave.nvim'
 Plug 'jghauser/mkdir.nvim'
-Plug ('ms-jpq/chadtree', { ['do'] = 'python3 -m chadtree deps' })
 Plug 'numToStr/Comment.nvim'
+Plug 'kyazdani42/nvim-tree.lua'
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'

@@ -1,16 +1,32 @@
+-- Safely load modules, handling errors that arise during the load
+function module(mod)
+    local ok, res = pcall(require, mod)
+
+    if not ok then
+        vim.notify_once(string.format('Failed to load module %s | %s', mod, res))
+    end
+end
+
 -- Run preload
-require('cfg/preload')
+module('preload')
 
 -- Initialise modules
-require('cfg/bufferline')
-require('cfg/lsp')
-require('cfg/colours')
-require('cfg/editor')
-require('cfg/keybinds')
-require('cfg/statusline')
-require('cfg/telescope')
-require('cfg/autosave')
-require('cfg/treesitter')
-require('cfg/trouble')
-require('cfg/chadtree')
-require('cfg/comment')
+module('core/autocmd')
+module('core/keybinds')
+module('theming/colours')
+module('core/editor')
+
+-- Core features
+module('core/bufferline')
+module('core/statusline')
+
+-- Diagnostics and navigation
+module('util/tree')
+module('diagnostic/lsp')
+module('diagnostic/cmp')
+
+-- Plugins
+module('util/autosave')
+module('misc/treesitter')
+module('diagnostic/trouble')
+module('util/comment')
