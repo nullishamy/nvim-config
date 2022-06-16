@@ -16,10 +16,10 @@ require('bufferline').setup {
     show_buffer_close_icons = false,--| false,
     show_buffer_default_icon = true,
     show_close_icon = true,   --| false,
-    show_tab_indicators = true, --| false,
+    show_tab_indicators = false, --| false,
     persist_buffer_sort = true,
     separator_style = "thin", --| "thick" | "thin" | { 'any', 'any' },
-    enforce_regular_tabs = true, --| true,
+    enforce_regular_tabs = false, --| true,
     always_show_bufferline = true, --| false,
     diagnostics = 'nvim_lsp'
   }

@@ -13,7 +13,7 @@ vim.cmd [[
 "  autocmd BufWritePre * ''
 ]]
 
--- Don't auto commenting new lines
+-- Don't auto comment new lines
 vim.cmd [[ 
   autocmd BufEnter * set fo-=c fo-=r fo-=o  
 ]]

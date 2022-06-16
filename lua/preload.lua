@@ -20,7 +20,7 @@ Plug 'glepnir/lspsaga.nvim'
 
 -- Diagnostics
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'folke/trouble.nvim'
+Plug 'nullishamy/trouble.nvim'
 
 -- Util
 Plug 'Pocco81/AutoSave.nvim'

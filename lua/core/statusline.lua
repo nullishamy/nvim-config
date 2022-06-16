@@ -73,15 +73,35 @@ ins_left {
 }
 
 ins_left {
-  'filetype',
-  fmt = string.upper,
-  icons_enabled = false,
+  'location',
+  color = { fg = colors.orange, gui = 'bold' },
+}
+
+ins_left {
+  -- LSP server name .
+  function()
+    local msg = 'None'
+    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then
+      return msg
+    end
+    for _, client in ipairs(clients) do
+      local filetypes = client.config.filetypes
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        return client.name
+      end
+    end
+    return msg
+  end,
+  icon = ' LSP:',
   color = { fg = colors.blue, gui = 'bold' },
 }
 
 ins_left {
-  'location',
-  color = { fg = colors.orange, gui = 'bold' },
+  'filetype',
+  icons_enabled = true,
+  color = { fg = colors.blue, gui = 'bold' },
 }
 
 -- Right hand side

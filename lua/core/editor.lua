@@ -5,7 +5,7 @@ local o = vim.o
 -- General
 o.completeopt = "menu,noinsert,noselect,preview"
 g.noshowmode = true
-
+g.wrap = true
 o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
