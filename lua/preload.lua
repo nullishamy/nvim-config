@@ -7,16 +7,26 @@ Plug 'sainnhe/edge'
 
 -- LSP
 Plug 'neovim/nvim-lspconfig'
+Plug "williamboman/nvim-lsp-installer"
+
+-- CMP
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'simrat39/rust-tools.nvim'
-Plug 'L3MON4D3/LuaSnip'
-Plug "williamboman/nvim-lsp-installer"
+Plug 'saadparwaiz1/cmp_luasnip'
+
+-- Treesitter
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'glepnir/lspsaga.nvim'
+
+-- Languages
+Plug 'simrat39/rust-tools.nvim'
+
+-- Snippets
+Plug 'honza/vim-snippets'
+Plug 'L3MON4D3/LuaSnip'
 
 -- Diagnostics
 Plug 'kyazdani42/nvim-web-devicons'
@@ -45,5 +55,3 @@ Plug 'akinsho/bufferline.nvim'
 Plug 'tpope/vim-fugitive'
 
 vim.call('plug#end')
-
-require("nvim-lsp-installer").setup { }

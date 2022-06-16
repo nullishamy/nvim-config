@@ -23,6 +23,9 @@ module('core/statusline')
 -- Diagnostics and navigation
 module('util/tree')
 module('diagnostic/lsp')
+
+-- Snippets must be loaded before cmp
+module('util/snippets')
 module('diagnostic/cmp')
 
 -- Plugins
@@ -30,3 +33,4 @@ module('util/autosave')
 module('misc/treesitter')
 module('diagnostic/trouble')
 module('util/comment')
+
