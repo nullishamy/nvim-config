@@ -30,7 +30,6 @@ module('diagnostic/cmp')
 
 -- Plugins
 module('util/autosave')
-module('misc/treesitter')
 module('diagnostic/trouble')
 module('util/comment')
-
+module('treesitter')

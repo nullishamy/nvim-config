@@ -8,6 +8,7 @@ Plug 'sainnhe/edge'
 -- LSP
 Plug 'neovim/nvim-lspconfig'
 Plug "williamboman/nvim-lsp-installer"
+Plug 'glepnir/lspsaga.nvim'
 
 -- CMP
 Plug 'hrsh7th/nvim-cmp'
@@ -17,9 +18,9 @@ Plug 'hrsh7th/cmp-path'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 -- Treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug ('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'glepnir/lspsaga.nvim'
+Plug 'p00f/nvim-ts-rainbow'
 
 -- Languages
 Plug 'simrat39/rust-tools.nvim'
