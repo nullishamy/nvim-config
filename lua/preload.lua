@@ -3,7 +3,7 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
 -- Theming
-Plug 'sainnhe/edge'
+Plug 'navarasu/onedark.nvim'
 
 -- LSP
 Plug 'neovim/nvim-lspconfig'

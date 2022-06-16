@@ -26,6 +26,24 @@ local conditions = {
   end,
 }
 
+local time = function ()
+    return os.date("%a %d %b %Y @ %H:%M")
+end
+
+local set_statusline_refresh = function ()
+    local redraw = function ()
+        vim.api.nvim_command('redrawtabline')
+    end
+
+    if _G.Tabline_timer == nil then
+      _G.Tabline_timer = vim.loop.new_timer()
+    else
+      _G.Tabline_timer:stop()
+    end
+      --        never timeout, repeat every 1000ms
+      _G.Tabline_timer:start(0, 1000, vim.schedule_wrap(redraw))
+end
+
 local config = {
   options = {
     component_separators = { left = '', right = ''},
@@ -72,37 +90,23 @@ ins_left {
   color = { fg = colors.green, gui = 'bold' },
 }
 
-ins_left {
-  'location',
-  color = { fg = colors.orange, gui = 'bold' },
-}
-
-ins_left {
-  -- LSP server name .
-  function()
-    local msg = 'None'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then
-      return msg
-    end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
-  end,
-  icon = ' LSP:',
-  color = { fg = colors.blue, gui = 'bold' },
-}
 
 ins_left {
   'filetype',
   icons_enabled = true,
   color = { fg = colors.blue, gui = 'bold' },
 }
+
+ins_left {
+  'location',
+  color = { fg = colors.orange, gui = 'bold' },
+}
+
+ins_left {
+  'progress',
+  color = { fg = colors.orange, gui = 'bold' },
+}
+
 
 -- Right hand side
 ins_right {
@@ -122,4 +126,10 @@ ins_right {
   cond = conditions.hide_in_width
 }
 
+ins_right {
+  time,
+  color = { colors.darkblue, gui = 'bold' }
+}
+
 require('lualine').setup(config)
+set_statusline_refresh()
