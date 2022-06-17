@@ -39,3 +39,7 @@ map('n', '<C-q>q', ':qa!<CR>')
 -- Terminal
 map('n', '<C-t>', ':term<CR>', { noremap = true })  -- open
 map('t', '<C-Esc>', '<C-\\><C-n>')                  -- exit
+
+-- Trouble
+map('', '<Leader>e', '<cmd>TroubleRefresh<cr>')
+map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')

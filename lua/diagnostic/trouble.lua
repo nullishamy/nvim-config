@@ -1,9 +1,8 @@
-local map = require("utils").map
-
 require("trouble").setup {
     auto_open = true,
-    position = 'bottom',
+    auto_close = true,
+    position = 'right',
+    indent_lines = false,
+    width = 40
 }
 
-map('', '<Leader>e', '<cmd>TroubleRefresh<cr>')
-map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')

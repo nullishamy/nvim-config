@@ -9,6 +9,7 @@ Plug 'navarasu/onedark.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug "williamboman/nvim-lsp-installer"
 Plug 'glepnir/lspsaga.nvim'
+Plug 'folke/lsp-colors.nvim'
 
 -- CMP
 Plug 'hrsh7th/nvim-cmp'
@@ -38,6 +39,7 @@ Plug 'Pocco81/AutoSave.nvim'
 Plug 'jghauser/mkdir.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'ggandor/leap.nvim'
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'
