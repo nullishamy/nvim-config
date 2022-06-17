@@ -1,5 +1,9 @@
 -- Init LSP installer
-require("nvim-lsp-installer").setup { }
+require("nvim-lsp-installer").setup {
+    ui = {
+        check_outdated_servers_on_open = false,
+    }
+}
 
 local lsp = require("lspconfig")
 
@@ -8,7 +12,7 @@ local on_attach = function (_, buf)
     local set = vim.api.nvim_buf_set_keymap
 
     set(buf, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    set(buf, 'n', 'gd', '<cmd>lua require("lspsaga.provider").preview_definition()<CR>', opts)
+    set(buf, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     set(buf, 'n', '<C-Space>', '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
     set(buf, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     set(buf, '', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -37,6 +41,7 @@ local servers = {
   },
   pyright = {},
   clangd = {},
+  kotlin_language_server = {},
   sumneko_lua = {
     settings = {
       Lua = {
