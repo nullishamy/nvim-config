@@ -40,8 +40,8 @@ local set_statusline_refresh = function ()
     else
       _G.Tabline_timer:stop()
     end
-      --        never timeout, repeat every 1000ms
-      _G.Tabline_timer:start(0, 1000, vim.schedule_wrap(redraw))
+      --        never timeout, repeat every 5000ms
+      _G.Tabline_timer:start(0, 5000, vim.schedule_wrap(redraw))
 end
 
 local config = {
