@@ -20,6 +20,9 @@ module('core/editor')
 module('core/bufferline')
 module('core/statusline')
 
+-- Neovide, if it exists
+module('core/neovide')
+
 -- Diagnostics and navigation
 module('util/tree')
 module('diagnostic/lsp')
@@ -35,3 +38,4 @@ module('util/comment')
 module('util/leap')
 module('treesitter')
 module('diagnostic/lsp_colours')
+
