@@ -1,8 +1,11 @@
 require('nvim-tree').setup {
     open_on_setup = true,
-    open_on_tab = true,
+    open_on_setup_file = false,
     update_cwd = true,
-    view = { width = 35 },
+    view = {
+        width = 35,
+        adaptive_size = true
+    },
     renderer = {
       highlight_opened_files = "1",
       group_empty = true,

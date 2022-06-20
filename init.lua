@@ -33,6 +33,7 @@ module('diagnostic/cmp')
 
 -- Plugins
 module('util/autosave')
+module('util/autopairs')
 module('diagnostic/trouble')
 module('util/comment')
 module('util/leap')
