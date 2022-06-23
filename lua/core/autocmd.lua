@@ -17,3 +17,8 @@ vim.cmd [[
 vim.cmd [[ 
   autocmd BufEnter * set fo-=c fo-=r fo-=o  
 ]]
+
+-- Disable annoying autoindent rules
+vim.cmd [[ 
+ autocmd BufEnter * set nocin nosi inde= 
+]]

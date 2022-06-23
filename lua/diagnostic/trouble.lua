@@ -1,7 +1,6 @@
 require("trouble").setup {
     auto_open = true,
-    auto_close = true,
-    position = 'right',
+    position = 'bottom',
     indent_lines = false,
     width = 40
 }

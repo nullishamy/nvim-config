@@ -9,9 +9,7 @@ g.wrap = true
 o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
-
 o.updatetime = 250
-
 vim.wo.number = true
 
 -- Memory & CPU
