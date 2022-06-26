@@ -41,6 +41,7 @@ Plug 'numToStr/Comment.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ggandor/leap.nvim'
 Plug 'windwp/nvim-autopairs'
+Plug 'folke/todo-comments.nvim'
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'

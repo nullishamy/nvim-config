@@ -7,6 +7,7 @@ function module(mod)
     end
 end
 
+-- TODO: test
 -- Run preload
 module('preload')
 
@@ -39,4 +40,6 @@ module('util/comment')
 module('util/leap')
 module('treesitter')
 module('diagnostic/lsp_colours')
+module('util/todo')
+
 
