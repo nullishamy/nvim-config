@@ -43,3 +43,6 @@ map('t', '<C-Esc>', '<C-\\><C-n>')                  -- exit
 -- Trouble
 map('', '<Leader>e', '<cmd>TroubleRefresh<cr>')
 map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')
+
+-- Prettier
+map('n', '<Leader>p', '<Plug>(prettier-format)')

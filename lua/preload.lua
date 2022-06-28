@@ -42,6 +42,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ggandor/leap.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'folke/todo-comments.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'MunifTanjim/prettier.nvim'
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'
