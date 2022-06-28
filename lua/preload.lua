@@ -29,6 +29,7 @@ Plug 'simrat39/rust-tools.nvim'
 -- Snippets
 Plug 'honza/vim-snippets'
 Plug 'L3MON4D3/LuaSnip'
+Plug ('heavenshell/vim-jsdoc', { ['do'] = 'make install'})
 
 -- Diagnostics
 Plug 'kyazdani42/nvim-web-devicons'
