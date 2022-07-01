@@ -44,13 +44,15 @@ Plug 'ggandor/leap.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'folke/todo-comments.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'MunifTanjim/prettier.nvim'
+Plug 'beauwilliams/focus.nvim'
+Plug 'karb94/neoscroll.nvim'
 
 -- Misc
 Plug 'nvim-lua/plenary.nvim'
 
 -- Selection
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'stevearc/dressing.nvim'
 
 -- Statusline
 Plug 'nvim-lualine/lualine.nvim'
@@ -61,5 +63,8 @@ Plug 'akinsho/bufferline.nvim'
 
 -- Git
 Plug 'tpope/vim-fugitive'
+
+-- Sessions
+Plug 'Shatur/neovim-session-manager'
 
 vim.call('plug#end')

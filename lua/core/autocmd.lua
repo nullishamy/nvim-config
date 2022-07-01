@@ -17,9 +17,3 @@ vim.cmd [[
 vim.cmd [[ 
  autocmd BufEnter * set nocin nosi inde= 
 ]]
-
--- Keep the cursor central at all times
-vim.cmd [[
-    autocmd BufEnter,WinEnter,WinNew,VimResized *,*.*
-        \ let &scrolloff=winheight(win_getid())/2
-]]
