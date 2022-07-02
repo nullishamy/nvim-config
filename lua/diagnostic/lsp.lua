@@ -20,10 +20,9 @@ local on_attach = function (_, buf)
     set(buf, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     set(buf, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     set(buf, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    set(buf, 'n', '<leader>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
+    set(buf, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     set(buf, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     set(buf, '', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    set(buf, 'n', '<leader>ds', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

@@ -40,3 +40,4 @@ map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')
 map('n', '<Leader>sl', '<cmd>SessionManager load_session<cr>')
 map('n', '<Leader>rs', '<cmd>SessionManager delete_session<cr>')
 map('n', '<Leader>us', '<cmd>SessionManager save_current_session<cr>')
+

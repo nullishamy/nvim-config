@@ -53,10 +53,12 @@ return require('packer').startup(function(use)
 
     -- Misc
     use 'nvim-lua/plenary.nvim'
+    use 'wbthomason/packer.nvim'
 
     -- Selection
     use 'nvim-telescope/telescope.nvim'
     use 'stevearc/dressing.nvim'
+
 
     -- Statusline
     use 'nvim-lualine/lualine.nvim'
@@ -66,7 +68,7 @@ return require('packer').startup(function(use)
     use 'akinsho/bufferline.nvim'
 
     -- Git
-    use 'tpope/vim-fugitive'
+    use 'lewis6991/gitsigns.nvim'
 
     -- Sessions
     use 'Shatur/neovim-session-manager'
