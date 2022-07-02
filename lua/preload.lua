@@ -1,70 +1,77 @@
--- Init Plug
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
+-- Bootstrap Packer
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local packer_bootstrap
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
 
--- Theming
-Plug 'navarasu/onedark.nvim'
+-- Init Packer
+return require('packer').startup(function(use)
+    use 'navarasu/onedark.nvim'
 
--- LSP
-Plug 'neovim/nvim-lspconfig'
-Plug "williamboman/nvim-lsp-installer"
-Plug 'glepnir/lspsaga.nvim'
-Plug 'folke/lsp-colors.nvim'
+    -- LSP
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/nvim-lsp-installer'
+    use 'glepnir/lspsaga.nvim'
+    use 'folke/lsp-colors.nvim'
 
--- CMP
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'saadparwaiz1/cmp_luasnip'
+    -- CMP
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'saadparwaiz1/cmp_luasnip'
 
--- Treesitter
-Plug ('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'p00f/nvim-ts-rainbow'
+    -- Treesitter
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'p00f/nvim-ts-rainbow'
 
--- Languages
-Plug 'simrat39/rust-tools.nvim'
+    -- Languages
+    use 'simrat39/rust-tools.nvim'
 
--- Snippets
-Plug 'honza/vim-snippets'
-Plug 'L3MON4D3/LuaSnip'
-Plug ('heavenshell/vim-jsdoc', { ['do'] = 'make install'})
+    -- Snippets
+    use 'honza/vim-snippets'
+    use 'L3MON4D3/LuaSnip'
+    use { 'heavenshell/vim-jsdoc', run = 'make install' }
 
--- Diagnostics
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nullishamy/trouble.nvim'
+    -- Diagnostics
+    use 'nullishamy/trouble.nvim'
 
--- Util
-Plug 'Pocco81/AutoSave.nvim'
-Plug 'jghauser/mkdir.nvim'
-Plug 'numToStr/Comment.nvim'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'ggandor/leap.nvim'
-Plug 'windwp/nvim-autopairs'
-Plug 'folke/todo-comments.nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'beauwilliams/focus.nvim'
-Plug 'karb94/neoscroll.nvim'
+    -- Util
+    use 'Pocco81/AutoSave.nvim'
+    use 'jghauser/mkdir.nvim'
+    use 'numToStr/Comment.nvim'
+    use 'kyazdani42/nvim-tree.lua'
+    use 'ggandor/leap.nvim'
+    use 'windwp/nvim-autopairs'
+    use 'folke/todo-comments.nvim'
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'beauwilliams/focus.nvim'
+    use 'karb94/neoscroll.nvim'
 
--- Misc
-Plug 'nvim-lua/plenary.nvim'
+    -- Misc
+    use 'nvim-lua/plenary.nvim'
 
--- Selection
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'stevearc/dressing.nvim'
+    -- Selection
+    use 'nvim-telescope/telescope.nvim'
+    use 'stevearc/dressing.nvim'
 
--- Statusline
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
+    -- Statusline
+    use 'nvim-lualine/lualine.nvim'
+    use 'kyazdani42/nvim-web-devicons'
 
--- Bufferline
-Plug 'akinsho/bufferline.nvim'
+    -- Bufferline
+    use 'akinsho/bufferline.nvim'
 
--- Git
-Plug 'tpope/vim-fugitive'
+    -- Git
+    use 'tpope/vim-fugitive'
 
--- Sessions
-Plug 'Shatur/neovim-session-manager'
+    -- Sessions
+    use 'Shatur/neovim-session-manager'
 
-vim.call('plug#end')
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end)

@@ -17,3 +17,8 @@ vim.cmd [[
 vim.cmd [[ 
  autocmd BufEnter * set nocin nosi inde= 
 ]]
+
+-- Recompile packer config when it changes
+vim.cmd [[
+ autocmd BufWritePost preload.lua source <afile> | PackerCompile
+]]

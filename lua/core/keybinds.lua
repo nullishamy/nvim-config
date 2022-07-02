@@ -26,9 +26,6 @@ map('', '<Leader>f', ':Telescope find_files<CR>')
 map('n', '<Leader>o', ':Telescope buffers<CR>')
 map('n', '<Leader>g', ':NvimTreeToggle<CR>')
 
--- Reload configuration without restart nvim
-map('n', '<leader>r', ':so %<CR>')
-
 -- Hard close vim with ctrl q + q
 map('n', '<C-q>q', ':qa!<CR>')
 
@@ -40,6 +37,6 @@ map('t', '<C-Esc>', '<C-\\><C-n>')                  -- exit
 map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')
 
 -- Sessions
-map('n', '<Leader>ls', '<cmd>SessionManager load_session<cr>')
+map('n', '<Leader>sl', '<cmd>SessionManager load_session<cr>')
 map('n', '<Leader>rs', '<cmd>SessionManager delete_session<cr>')
 map('n', '<Leader>us', '<cmd>SessionManager save_current_session<cr>')
