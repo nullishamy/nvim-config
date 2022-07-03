@@ -13,7 +13,7 @@ local on_attach = function (_, buf)
 
     set(buf, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     set(buf, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    set(buf, 'n', '<C-Space>', '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
+    set(buf, 'n', '<C-Space>', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     set(buf, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     set(buf, '', '<leader>i', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     set(buf, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -94,14 +94,4 @@ require('rust-tools').setup {
         end
     }
   }
-}
-
-local saga = require('lspsaga')
-
-saga.init_lsp_saga {
-  error_sign = '',
-  warn_sign = '',
-  hint_sign = '',
-  infor_sign = '',
-  border_style = "round",
 }

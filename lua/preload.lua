@@ -13,7 +13,6 @@ return require('packer').startup(function(use)
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
-    use 'glepnir/lspsaga.nvim'
     use 'folke/lsp-colors.nvim'
 
     -- CMP
