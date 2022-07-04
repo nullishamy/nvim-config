@@ -53,6 +53,7 @@ return require('packer').startup(function(use)
     -- Misc
     use 'nvim-lua/plenary.nvim'
     use 'wbthomason/packer.nvim'
+    use 'wakatime/vim-wakatime'
 
     -- Selection
     use 'nvim-telescope/telescope.nvim'
