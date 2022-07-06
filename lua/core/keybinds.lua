@@ -17,8 +17,8 @@ map("n", "<Right>", "<Nop>")
 map("n", "<Leader>d", ":nohlsearch<cr>")
 
 -- Buffer controls
-map("", "<C-h>", ":BufferLineCyclePrev<cr>")
-map("", "<C-l>", ":BufferLineCycleNext<cr>")
+map("", "<C-h>", "<Plug>(cokeline-focus-prev)")
+map("", "<C-l>", "<Plug>(cokeline-focus-next)")
 map("", "<Leader>q", ":bp<bar>sp<bar>bn<bar>bd<cr>")
 
 -- Navigation  controls

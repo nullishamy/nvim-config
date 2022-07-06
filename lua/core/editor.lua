@@ -10,6 +10,7 @@ o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
 o.updatetime = 250
+o.mouse = 'a'
 opt.scrolloff = 12 -- Keep 12 lines of context on either side of the cursor
 vim.wo.number = true
 

@@ -4,33 +4,49 @@ if not present then
   return
 end
 
-local function border(hl_name)
-  return {
-    { "╭", hl_name },
-    { "─", hl_name },
-    { "╮", hl_name },
-    { "│", hl_name },
-    { "╯", hl_name },
-    { "─", hl_name },
-    { "╰", hl_name },
-    { "│", hl_name },
-  }
-end
-
+local border = require('utils').border
 local cmp_window = require "cmp.utils.window"
 
 function cmp_window:has_scrollbar()
   return false
 end
 
+local icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
+
 local options = {
   window = {
     completion = {
-      border = border "CmpBorder",
+      border = border("CmpBorder"),
       winhighlight = 'Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None',
     },
     documentation = {
-      border = border "CmpDocBorder",
+      border = border("CmpDocBorder"),
     },
   },
   snippet = {
@@ -40,33 +56,6 @@ local options = {
   },
   formatting = {
     format = function(_, vim_item)
-      local icons = {
-        Text = "",
-        Method = "",
-        Function = "",
-        Constructor = "",
-        Field = "ﰠ",
-        Variable = "",
-        Class = "",
-        Interface = "",
-        Module = "",
-        Property = "",
-        Unit = "",
-        Value = "",
-        Enum = "",
-        Keyword = "",
-        Snippet = "",
-        Color = "",
-        File = "",
-        Reference = "",
-        Folder = "",
-        EnumMember = "",
-        Constant = "",
-        Struct = "פּ",
-        Event = "",
-        Operator = "",
-        TypeParameter = "",
-      }
       vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
       return vim_item
@@ -107,5 +96,6 @@ cmp.event:on(
 cmp.setup(options)
 
 vim.diagnostic.config({
-    virtual_text = false
+    virtual_text = false,
+    update_in_insert = true,
 })

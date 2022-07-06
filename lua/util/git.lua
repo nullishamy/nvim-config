@@ -15,7 +15,7 @@ require('gitsigns').setup {
           date_time = os.date('%Y-%m-%d', tonumber(blame_info['author_time']))
         end
         text = string.format(
-          '%s, %s • %s',
+          '%s, %s (%s)',
           blame_info.author,
           date_time,
           blame_info.summary
@@ -23,7 +23,7 @@ require('gitsigns').setup {
       end
       return {{' '..text, 'GitSignsCurrentLineBlame'}}
     end,
-    current_line_blame_formatter_nc = 'You • Uncommitted changes',
+    current_line_blame_formatter_nc = 'You (Uncommitted changes)',
     current_line_blame_formatter_opts = {
         relative_time = true
     }

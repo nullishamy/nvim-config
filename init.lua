@@ -42,7 +42,7 @@ module('util/git')
 module('diagnostic/lsp_colours')
 module('util/todo')
 module('util/focus')
-module('util/dressing')
+module('util/gui')
 module('util/scroll')
 
 

@@ -15,10 +15,14 @@ vim.cmd [[
 
 -- Disable annoying autoindent rules
 vim.cmd [[ 
- autocmd BufEnter * set nocin nosi inde= 
+ autocmd BufEnter,WinEnter,FocusGained * set nocin nosi inde= 
 ]]
 
 -- Recompile packer config when it changes
 vim.cmd [[
  autocmd BufWritePost preload.lua source <afile> | PackerCompile
 ]]
+
+-- Set colours when floats open, overwrites colour scheme implementations
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guifg=white guibg=#1a212e ]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1a212e ]]
