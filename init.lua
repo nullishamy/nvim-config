@@ -1,11 +1,10 @@
--- Safely load modules, handling errors that arise during the load
-function module(mod)
-    local ok, res = pcall(require, mod)
+local ok, utils = pcall(require, 'utils')
 
-    if not ok then
-        vim.notify_once(string.format('Failed to load module %s | %s', mod, res))
-    end
+if (not ok) then
+    return vim.notify_once('Failed to load `utils` module, cannot proceed.')
 end
+
+local module = utils.load_module
 
 -- Run preload
 module('preload')
