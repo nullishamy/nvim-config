@@ -5,4 +5,4 @@ map('n', '<leader>j', ':FocusSplitDown<CR>')
 map('n', '<leader>k', ':FocusSplitUp<CR>')
 map('n', '<leader>l', ':FocusSplitRight<CR>')
 
-require("focus").setup()
+require('focus').setup()

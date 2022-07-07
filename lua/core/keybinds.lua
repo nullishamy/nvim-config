@@ -1,25 +1,25 @@
-local map = require("utils").map
+local map = require('utils').map
 
 --Remap space as leader key
-map("", "<Space>", "<Nop>", { silent = true })
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+map('', '<Space>', '<Nop>', { silent = true })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Quick exit from insert mode
-map("i", "jk", "<Esc>")
+map('i', 'jk', '<Esc>')
 
 -- Disable arrow keys to force hjkl usage
-map("n", "<Up>", "<Nop>")
-map("n", "<Down>", "<Nop>")
-map("n", "<Left>", "<Nop>")
-map("n", "<Right>", "<Nop>")
+map('n', '<Up>', '<Nop>')
+map('n', '<Down>', '<Nop>')
+map('n', '<Left>', '<Nop>')
+map('n', '<Right>', '<Nop>')
 
-map("n", "<Leader>d", ":nohlsearch<cr>")
+map('n', '<Leader>d', ':nohlsearch<cr>')
 
 -- Buffer controls
-map("", "<C-h>", "<Plug>(cokeline-focus-prev)")
-map("", "<C-l>", "<Plug>(cokeline-focus-next)")
-map("", "<Leader>q", ":bp<bar>sp<bar>bn<bar>bd<cr>")
+map('', '<C-h>', '<Plug>(cokeline-focus-prev)')
+map('', '<C-l>', '<Plug>(cokeline-focus-next)')
+map('', '<Leader>q', ':bp<bar>sp<bar>bn<bar>bd<cr>')
 
 -- Navigation  controls
 map('', '<Leader>f', ':Telescope find_files<CR>')
@@ -30,8 +30,8 @@ map('n', '<Leader>g', ':NvimTreeToggle<CR>')
 map('n', '<C-q>q', ':qa!<CR>')
 
 -- Terminal
-map('n', '<C-t>', ':term<CR>', { noremap = true })  -- open
-map('t', '<C-Esc>', '<C-\\><C-n>')                  -- exit
+map('n', '<C-t>', ':term<CR>', { noremap = true }) -- open
+map('t', '<C-Esc>', '<C-\\><C-n>') -- exit
 
 -- Trouble
 map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')
@@ -40,4 +40,3 @@ map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')
 map('n', '<Leader>sl', '<cmd>SessionManager load_session<cr>')
 map('n', '<Leader>rs', '<cmd>SessionManager delete_session<cr>')
 map('n', '<Leader>us', '<cmd>SessionManager save_current_session<cr>')
-

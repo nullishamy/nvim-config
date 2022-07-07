@@ -1,1 +1,1 @@
-return {'python', 'java', 'javascript', 'typescript', 'lua'}
+return { 'python', 'java', 'javascript', 'typescript', 'lua' }
