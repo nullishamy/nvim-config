@@ -1,4 +1,6 @@
-local map = require('utils').map
+local utils = require('utils')
+local map = utils.map
+local abbrev = utils.abbrev
 
 --Remap space as leader key
 map('', '<Space>', '<Nop>', { silent = true })
@@ -51,3 +53,6 @@ map('n', '<leader>h', ':FocusSplitLeft<CR>')
 map('n', '<leader>j', ':FocusSplitDown<CR>')
 map('n', '<leader>k', ':FocusSplitUp<CR>')
 map('n', '<leader>l', ':FocusSplitRight<CR>')
+
+-- Abbreviations
+abbrev('Git', 'Neotree focus source=git_status position=float')

@@ -121,11 +121,12 @@ local config = {
         deleted   = "✖",
         modified  = "",
         renamed   = "",
+
         -- Status type
         untracked = "",
         ignored   = "",
-        unstaged  = "",
-        staged    = "",
+        unstaged  = "",
+        staged    = "",
         conflict  = "",
       },
       align = "right",
