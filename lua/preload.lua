@@ -46,12 +46,14 @@ return require('packer').startup(function(use)
 	use('Pocco81/AutoSave.nvim')
 	use('jghauser/mkdir.nvim')
 	use('numToStr/Comment.nvim')
-	use('kyazdani42/nvim-tree.lua')
+	use('nvim-neo-tree/neo-tree.nvim')
 	use('ggandor/leap.nvim')
 	use('windwp/nvim-autopairs')
 	use('folke/todo-comments.nvim')
 	use('beauwilliams/focus.nvim')
 	use('karb94/neoscroll.nvim')
+	use('famiu/bufdelete.nvim')
+	use('MunifTanjim/nui.nvim')
 
 	-- Misc
 	use('nvim-lua/plenary.nvim')
@@ -75,11 +77,6 @@ return require('packer').startup(function(use)
 
 	-- Sessions
 	use('Shatur/neovim-session-manager')
-
-	use({
-		'/home/amy/Projects/cppm.nvim',
-		rocks = 'toml',
-	})
 
 	if packer_bootstrap then
 		-- If we just bootstrapped, sync.
