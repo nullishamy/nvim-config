@@ -44,10 +44,6 @@ map('n', '<Leader>sl', '<cmd>SessionManager load_session<cr>')
 map('n', '<Leader>sd', '<cmd>SessionManager delete_session<cr>')
 map('n', '<Leader>ss', '<cmd>SessionManager save_current_session<cr>')
 
--- Stay in indent mode
-map('n', '<', '<gv')
-map('n', '>', '>gv')
-
 -- Focus
 map('n', '<leader>h', ':FocusSplitLeft<CR>')
 map('n', '<leader>j', ':FocusSplitDown<CR>')

@@ -33,6 +33,10 @@ return require('packer').startup(function(use)
 
 	-- Languages
 	use('simrat39/rust-tools.nvim')
+	use({
+		'iamcco/markdown-preview.nvim',
+		run = function() vim.fn["mkdp#util#install"]() end,
+	})
 
 	-- Snippets
 	use('honza/vim-snippets')
