@@ -52,3 +52,4 @@ map('n', '<leader>l', ':FocusSplitRight<CR>')
 
 -- Abbreviations
 abbrev('Git', 'Neotree focus source=git_status position=float')
+abbrev('Grep', 'lua require(\'telescope.builtin\').live_grep()')
