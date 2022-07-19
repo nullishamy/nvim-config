@@ -16,9 +16,6 @@ map('n', '<Down>', '<Nop>')
 map('n', '<Left>', '<Nop>')
 map('n', '<Right>', '<Nop>')
 
--- Hide highlights
-map('n', '<Leader>d', ':nohlsearch<cr>')
-
 -- Buffer controls
 map('', '<C-h>', '<Plug>(cokeline-focus-prev)')
 map('', '<C-l>', '<Plug>(cokeline-focus-next)')
