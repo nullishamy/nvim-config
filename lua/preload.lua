@@ -58,6 +58,7 @@ return require('packer').startup(function(use)
 	use('karb94/neoscroll.nvim')
 	use('famiu/bufdelete.nvim')
 	use('MunifTanjim/nui.nvim')
+	use('tpope/vim-surround')
 
 	-- Misc
 	use('nvim-lua/plenary.nvim')
