@@ -1,0 +1,5 @@
+return {
+	wakatime = {
+		enabled = true
+	}
+}

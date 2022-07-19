@@ -67,7 +67,12 @@ return require('packer').startup(function(use)
 	-- Misc
 	use('nvim-lua/plenary.nvim')
 	use('wbthomason/packer.nvim')
-	use('wakatime/vim-wakatime')
+	use({
+		'wakatime/vim-wakatime',
+		cond = function ()
+			return require('config').wakatime.enabled
+		end
+	})
 	use('sheerun/vim-polyglot')
 
 	-- Selection
