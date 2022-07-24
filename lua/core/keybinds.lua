@@ -30,8 +30,9 @@ map('n', '<Leader>g', ':Neotree focus reveal<CR>')
 map('n', '<C-q>q', ':qa!<CR>')
 
 -- Terminal
-map('n', '<C-t>', ':term<CR>', { noremap = true }) -- open
-map('t', '<Esc>', '<C-\\><C-n>') -- exit
+map('n', '<C-t>', '<CMD>lua require("FTerm").toggle()<CR>')
+map('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+map('t', '<Esc>', '<C-\\><C-n>')
 
 -- Trouble
 map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')

@@ -42,5 +42,6 @@ module('util/text/todo')
 module('util/navigation/focus')
 module('util/ui/gui')
 module('util/navigation/scroll')
+module('util/ui/terminal')
 
 
