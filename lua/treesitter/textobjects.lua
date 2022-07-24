@@ -8,6 +8,10 @@ return {
 			['if'] = '@function.inner',
 			['ac'] = '@class.outer',
 			['ic'] = '@class.inner',
+			['ap'] = '@parameter.outer',
+			['ip'] = '@parameter.inner',
+			['ab'] = '@block.outer',
+			['ib'] = '@block.inner',
 		},
 	},
 	move = {

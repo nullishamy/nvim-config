@@ -4,7 +4,10 @@ local o = vim.o
 if (g.neovide) then
   g.neovide_refresh_rate = 144
 
-  -- Disable the cursor, it's annoying and has weird visual glitches with Trouble
-  g.neovide_cursor_animation_length = 0
+  g.neovide_cursor_animation_length = 0.13
+  g.neovide_cursor_trail_length = 0.3
+  g.neovide_no_idle = true
+  g.neovide_cursor_vfx_mode = 'pixiedust'
+
   o.guifont = 'Comic Code Ligatures, monospace:h13'
 end

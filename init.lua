@@ -16,7 +16,6 @@ module('theming/colours')
 module('core/editor')
 
 -- Core features
-module('core/bufferline')
 module('core/statusline')
 
 -- Neovide, if it exists
