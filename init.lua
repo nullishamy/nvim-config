@@ -22,25 +22,25 @@ module('core/statusline')
 module('core/neovide')
 
 -- Diagnostics and navigation
-module('util/tree')
+module('util/ui/tree')
 module('diagnostic/lsp')
 
 -- Snippets must be loaded before cmp
-module('util/snippets')
+module('util/integrations/snippets')
 module('diagnostic/cmp')
 
 -- Plugins
 module('util/autosave')
-module('util/autopairs')
+module('util/text/autopairs')
 module('diagnostic/trouble')
-module('util/comment')
-module('util/leap')
+module('util/text/comment')
+module('util/navigation/leap')
 module('treesitter')
-module('util/git')
+module('util/integrations/git')
 module('diagnostic/lsp_colours')
-module('util/todo')
-module('util/focus')
-module('util/gui')
-module('util/scroll')
+module('util/text/todo')
+module('util/navigation/focus')
+module('util/ui/gui')
+module('util/navigation/scroll')
 
 
