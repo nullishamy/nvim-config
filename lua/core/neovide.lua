@@ -9,6 +9,5 @@ if g.neovide then
   g.neovide_no_idle = true
   g.neovide_cursor_vfx_mode = 'pixiedust'
   g.neovide_scroll_animation_length = 0.3
-
-  o.guifont = 'Comic Code Ligatures, monospace:h13'
+  o.guifont = 'Iosevka Fixed, monospace:h15'
 end

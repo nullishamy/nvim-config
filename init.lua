@@ -18,6 +18,7 @@ module('theming/colours')
 
 -- Core features
 module('core/statusline')
+module('core/bufferline')
 module('core/sessions')
 
 -- Neovide, if it exists
