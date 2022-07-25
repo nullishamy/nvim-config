@@ -1,5 +1,6 @@
+-- Protected in case the module is broken, or something
+-- We need it to load modules safely
 local ok, utils = pcall(require, 'utils')
-
 if not ok then
   return vim.notify_once('Failed to load `utils` module, cannot proceed.')
 end
@@ -10,10 +11,10 @@ local module = utils.load_module
 module('preload')
 
 -- Initialise modules
+module('core/editor')
 module('core/autocmd')
 module('core/keybinds')
 module('theming/colours')
-module('core/editor')
 
 -- Core features
 module('core/statusline')
@@ -31,21 +32,27 @@ module('util/integrations/snippets')
 module('diagnostic/cmp')
 
 -- Plugins
+module('treesitter')
+
 module('util/autosave')
+module('util/filetype')
+
 module('util/text/autopairs')
 module('util/text/surround')
-module('diagnostic/trouble')
 module('util/text/comment')
-module('util/navigation/leap')
-module('treesitter')
-module('util/integrations/git')
-module('diagnostic/lsp_colours')
 module('util/text/todo')
-module('util/navigation/focus')
-module('util/ui/gui')
-module('util/navigation/scroll')
-module('util/ui/terminal')
-module('util/integrations/discord')
-module('util/ui/quickfix')
-module('util/filetype')
 module('util/text/cutlass')
+
+module('util/navigation/leap')
+module('util/navigation/focus')
+module('util/navigation/scroll')
+
+module('util/ui/quickfix')
+module('util/ui/gui')
+module('util/ui/terminal')
+
+module('util/integrations/git')
+module('util/integrations/discord')
+
+module('diagnostic/lsp_colours')
+module('diagnostic/trouble')

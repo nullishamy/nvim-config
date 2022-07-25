@@ -57,6 +57,6 @@ map('n', '<C-W>m', '<cmd>WinShift<cr>')
 
 -- Abbreviations
 abbrev('Git', 'Neotree focus source=git_status position=float')
-abbrev('Grep', function ()
+abbrev('Grep', function()
   require('telescope.builtin').live_grep()
 end)
