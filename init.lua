@@ -17,6 +17,7 @@ module('core/editor')
 
 -- Core features
 module('core/statusline')
+module('core/sessions')
 
 -- Neovide, if it exists
 module('core/neovide')
@@ -47,3 +48,4 @@ module('util/ui/terminal')
 module('util/integrations/discord')
 module('util/ui/quickfix')
 module('util/filetype')
+module('util/text/cutlass')

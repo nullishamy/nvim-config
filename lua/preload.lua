@@ -67,6 +67,7 @@ return require('packer').startup(function(use)
   use('numToStr/FTerm.nvim')
   use('sindrets/winshift.nvim')
   use('https://gitlab.com/yorickpeterse/nvim-pqf')
+  use('gbprod/cutlass.nvim')
 
   -- Tpope utils
   use('tpope/vim-sleuth')
