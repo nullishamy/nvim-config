@@ -30,6 +30,8 @@ return require('packer').startup(function(use)
 	use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
 	use('nvim-treesitter/nvim-treesitter-textobjects')
 	use('p00f/nvim-ts-rainbow')
+	use('windwp/nvim-ts-autotag')
+	use('windwp/nvim-autopairs')
 
 	-- Languages
 	use('simrat39/rust-tools.nvim')
@@ -52,13 +54,15 @@ return require('packer').startup(function(use)
 	use('numToStr/Comment.nvim')
 	use('nvim-neo-tree/neo-tree.nvim')
 	use('ggandor/leap.nvim')
-	use('windwp/nvim-autopairs')
 	use('folke/todo-comments.nvim')
 	use('beauwilliams/focus.nvim')
 	use('karb94/neoscroll.nvim')
 	use('famiu/bufdelete.nvim')
 	use('MunifTanjim/nui.nvim')
 	use('numToStr/FTerm.nvim')
+	use('sindrets/winshift.nvim')
+	use('https://gitlab.com/yorickpeterse/nvim-pqf')
+
 	-- Tpope utils
 	use('tpope/vim-sleuth')
 	use('tpope/vim-surround')
@@ -74,6 +78,7 @@ return require('packer').startup(function(use)
 		end
 	})
 	use('sheerun/vim-polyglot')
+	use('andweeb/presence.nvim')
 
 	-- Selection
 	use('nvim-telescope/telescope.nvim')

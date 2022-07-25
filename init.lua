@@ -43,5 +43,5 @@ module('util/navigation/focus')
 module('util/ui/gui')
 module('util/navigation/scroll')
 module('util/ui/terminal')
-
-
+module('util/integrations/discord')
+module('util/ui/quickfix')

@@ -48,6 +48,9 @@ map('n', '<leader>j', ':FocusSplitDown<CR>')
 map('n', '<leader>k', ':FocusSplitUp<CR>')
 map('n', '<leader>l', ':FocusSplitRight<CR>')
 
+-- Winshift
+map('n', '<C-W>m', '<cmd>WinShift<cr>')
+
 -- Abbreviations
 abbrev('Git', 'Neotree focus source=git_status position=float')
 abbrev('Grep', 'lua require(\'telescope.builtin\').live_grep()')

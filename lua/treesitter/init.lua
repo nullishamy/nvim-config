@@ -5,6 +5,9 @@ require('nvim-treesitter.configs').setup({
 	indent = {
 		enable = true,
 	},
+	autotag = {
+		enable = true
+	},
 	ensure_installed = require('treesitter.ensure_installed'),
 	rainbow = require('treesitter.rainbow_brackets'),
 	textobjects = require('treesitter.textobjects'),
