@@ -1,15 +1,41 @@
+local one_dark_deep = {
+    black = "#0c0e15",
+    bg0 = "#1a212e",
+    bg1 = "#21283b",
+    bg2 = "#283347",
+    bg3 = "#2a324a",
+    bg_d = "#141b24",
+    bg_blue = "#54b0fd",
+    bg_yellow = "#f2cc81",
+    fg = "#93a4c3",
+    purple = "#c75ae8",
+    green = "#8bcd5b",
+    orange = "#dd9046",
+    blue = "#41a7fc",
+    yellow = "#efbd5d",
+    cyan = "#34bfd0",
+    red = "#f65866",
+    grey = "#455574",
+    light_grey = "#6c7d9c",
+    dark_cyan = "#1b6a73",
+    dark_red = "#992525",
+    dark_yellow = "#8f610d",
+    dark_purple = "#862aa1",
+    diff_add = "#27341c",
+    diff_delete = "#331c1e",
+    diff_change = "#102b40",
+    diff_text = "#1c4a6e",
+}
+
 local colors = {
   bg = '#2e3440',
   fg = '#d8dee9',
-  yellow = '#ebcb8b',
-  cyan = '#81a1c1',
-  darkblue = '#5e81ac',
-  green = '#a3be8c',
-  orange = '#d08770',
-  violet = '#b48ead',
-  magenta = '#b48ead',
-  blue = '#81a1c1',
-  red = '#bf616a',
+  green = one_dark_deep.green,
+  orange = one_dark_deep.orange,
+  blue = one_dark_deep.blue,
+  yellow = one_dark_deep.yellow,
+  cyan = one_dark_deep.cyan,
+  red = one_dark_deep.red,
 }
 
 local conditions = {
@@ -131,7 +157,7 @@ ins_left({
 ins_right({
   'branch',
   icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
+  color = { fg = one_dark_deep.purple, gui = 'bold' },
 })
 
 ins_right({
@@ -147,7 +173,7 @@ ins_right({
 
 ins_right({
   time,
-  color = { colors.darkblue, gui = 'bold' },
+  color = { fg = one_dark_deep.fg, gui = 'bold' },
 })
 
 require('lualine').setup(config)
