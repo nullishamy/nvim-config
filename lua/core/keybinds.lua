@@ -25,6 +25,8 @@ map('', '<Leader>q', '<cmd>Bdelete<cr>')
 map('', '<Leader>f', ':Telescope find_files<CR>')
 map('n', '<Leader>o', ':Telescope buffers<CR>')
 map('n', '<Leader>g', ':Neotree focus reveal<CR>')
+map('n', 'H', '^')
+map('n', 'L', '$')
 
 -- Hard close vim with ctrl q + q
 map('n', '<C-q>q', ':qa!<CR>')
