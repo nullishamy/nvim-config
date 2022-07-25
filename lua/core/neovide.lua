@@ -1,7 +1,7 @@
 local g = vim.g
 local o = vim.o
 
-if (g.neovide) then
+if g.neovide then
   g.neovide_refresh_rate = 144
 
   g.neovide_cursor_animation_length = 0.13

@@ -1,5 +1,5 @@
 require('neoscroll').setup({
-	respect_scrolloff = true,
+  respect_scrolloff = true,
 })
 
 local t = {}

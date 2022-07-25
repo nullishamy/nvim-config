@@ -1,5 +1,5 @@
 return {
-	wakatime = {
-		enabled = true
-	}
+  wakatime = {
+    enabled = true,
+  },
 }

@@ -1,7 +1,7 @@
 local ok, utils = pcall(require, 'utils')
 
-if (not ok) then
-    return vim.notify_once('Failed to load `utils` module, cannot proceed.')
+if not ok then
+  return vim.notify_once('Failed to load `utils` module, cannot proceed.')
 end
 
 local module = utils.load_module
