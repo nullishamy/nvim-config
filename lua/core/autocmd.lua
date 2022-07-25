@@ -1,7 +1,7 @@
 -- Line numbers should be relative in normal mode
 -- but absolute in insert mode.
 vim.cmd([[ 
-    :augroup numberToggle 
+    :augroup NumberToggle 
     :  autocmd!
     :  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
     :  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
