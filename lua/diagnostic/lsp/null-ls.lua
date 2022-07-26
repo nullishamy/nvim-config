@@ -17,15 +17,15 @@ local function setup(config)
   vim.cmd([[
     augroup NullLs
       autocmd!
-      autocmd DirChanged * unsilent LspStart null-ls
-      autocmd InsertLeave * unsilent lua require("null-ls.rpc").flush()
+        autocmd DirChanged * lua require('core.diagnostic.lsp.null_ls').on_dir_changed()
+        autocmd FileType * lua require('core.diagnostic.lsp.null_ls').add_buf()
+        autocmd InsertLeave * lua require("null-ls.rpc").flush()
     augroup end
   ]])
 
   null_ls.setup({
     sources = SOURCES,
     on_attach = config.on_attach,
-    debug = true
   })
 
   configs['null-ls'] = {
@@ -46,6 +46,38 @@ local function setup(config)
   end
 end
 
+local function find_null_ls_client()
+  for _, client in pairs(vim.lsp.get_active_clients()) do
+    if client.name == 'null-ls' then
+      return client
+    end
+  end
+  return nil
+end
+
+local function on_dir_changed()
+  local client = find_null_ls_client()
+
+  if client ~= nil then
+    vim.cmd(string.format([[ LspStop %d ]], client.id))
+    vim.wait(500, function()
+      return find_null_ls_client() == nil
+    end)
+  end
+
+  vim.cmd([[ LspStart null-ls ]])
+end
+
+local function add_buf()
+  vim.wait(600, function()
+    return find_null_ls_client() ~= nil
+  end)
+
+  require('null-ls.client').try_add()
+end
+
 return {
-  external_setup = setup
+  external_setup = setup,
+  on_dir_changed = on_dir_changed,
+  add_buf = add_buf,
 }
