@@ -27,8 +27,8 @@ map('n', '<Leader>o', '<cmd>Telescope buffers<cr>')
 map('n', '<Leader>g', '<cmd>Neotree focus reveal<cr>')
 
 -- Jump to start / end
-map('n', 'H', '^')
-map('n', 'L', '$')
+map('', 'H', '^')
+map('', 'L', '$')
 
 -- Hard close vim with ctrl q + q
 map('n', '<C-q>q', '<cmd>qa!<cr>')
@@ -59,4 +59,7 @@ map('n', '<C-W>m', '<cmd>WinShift<cr>')
 abbrev('Git', 'Neotree focus source=git_status position=float')
 abbrev('Grep', function()
   require('telescope.builtin').live_grep()
+end)
+abbrev('OrganiseImports', function()
+  require('diagnostic.util').organize_imports()
 end)

@@ -8,7 +8,7 @@ local yellow = vim.g.terminal_color_3
 local components = {
   space = {
     text = ' ',
-    truncation = { priority = 1 }
+    truncation = { priority = 1 },
   },
 
   two_spaces = {
@@ -20,36 +20,28 @@ local components = {
     text = function(buffer)
       return buffer.index ~= 1 and ' ▏ ' or ''
     end,
-    truncation = { priority = 1 }
+    truncation = { priority = 1 },
   },
 
   devicon = {
     text = function(buffer)
-      return
-        (mappings.is_picking_focus() or mappings.is_picking_close())
-          and buffer.pick_letter .. ' '
-           or buffer.devicon.icon
+      return (mappings.is_picking_focus() or mappings.is_picking_close()) and buffer.pick_letter .. ' '
+        or buffer.devicon.icon
     end,
     fg = function(buffer)
-      return
-        (mappings.is_picking_focus() and yellow)
-        or (mappings.is_picking_close() and red)
-        or buffer.devicon.color
+      return (mappings.is_picking_focus() and yellow) or (mappings.is_picking_close() and red) or buffer.devicon.color
     end,
     style = function(_)
-      return
-        (mappings.is_picking_focus() or mappings.is_picking_close())
-        and 'italic,bold'
-         or nil
+      return (mappings.is_picking_focus() or mappings.is_picking_close()) and 'italic,bold' or nil
     end,
-    truncation = { priority = 1 }
+    truncation = { priority = 1 },
   },
 
   index = {
     text = function(buffer)
       return buffer.index .. ': '
     end,
-    truncation = { priority = 1 }
+    truncation = { priority = 1 },
   },
 
   unique_prefix = {
@@ -69,9 +61,7 @@ local components = {
       return buffer.filename
     end,
     style = function(buffer)
-      return
-        (buffer.is_focused and 'bold,underline')
-        or nil
+      return (buffer.is_focused and 'bold,underline') or nil
     end,
     truncation = {
       priority = 2,
@@ -95,10 +85,7 @@ require('cokeline').setup({
 
   default_hl = {
     fg = function(buffer)
-      return
-        buffer.is_focused
-        and get_hex('Normal', 'fg')
-         or get_hex('Comment', 'fg')
+      return buffer.is_focused and get_hex('Normal', 'fg') or get_hex('Comment', 'fg')
     end,
     bg = get_hex('ColorColumn', 'bg'),
   },
