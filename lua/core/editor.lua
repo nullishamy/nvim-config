@@ -6,6 +6,7 @@ local o = vim.o
 o.completeopt = 'menu,noinsert,noselect,preview'
 g.noshowmode = true
 g.wrap = true
+g.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages'
 o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true

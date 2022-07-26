@@ -2,9 +2,6 @@ local get_hex = require('cokeline/utils').get_hex
 local mappings = require('cokeline/mappings')
 
 local comments_fg = get_hex('Comment', 'fg')
-local errors_fg = get_hex('DiagnosticError', 'fg')
-local warnings_fg = get_hex('DiagnosticWarn', 'fg')
-
 local red = vim.g.terminal_color_1
 local yellow = vim.g.terminal_color_3
 
@@ -73,10 +70,7 @@ local components = {
     end,
     style = function(buffer)
       return
-        ((buffer.is_focused and buffer.diagnostics.errors ~= 0)
-          and 'bold,underline')
-        or (buffer.is_focused and 'bold')
-        or (buffer.diagnostics.errors ~= 0 and 'underline')
+        (buffer.is_focused and 'bold,underline')
         or nil
     end,
     truncation = {
@@ -84,22 +78,6 @@ local components = {
       direction = 'left',
     },
   },
-
-  diagnostics = {
-    text = function(buffer)
-      return
-        (buffer.diagnostics.errors ~= 0 and '  ' .. buffer.diagnostics.errors)
-        or (buffer.diagnostics.warnings ~= 0 and '  ' .. buffer.diagnostics.warnings)
-        or ''
-    end,
-    fg = function(buffer)
-      return
-        (buffer.diagnostics.errors ~= 0 and errors_fg)
-        or (buffer.diagnostics.warnings ~= 0 and warnings_fg)
-        or nil
-    end,
-    truncation = { priority = 1 },
-  }
 }
 
 require('cokeline').setup({
