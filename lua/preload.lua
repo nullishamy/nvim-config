@@ -8,9 +8,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
--- Avoid sourcing filetype.vim, we use our own for performance
-vim.g.did_load_filetypes = 1
-
 -- Init Packer
 return require('packer').startup(function(use)
   -- Theme
@@ -85,7 +82,6 @@ return require('packer').startup(function(use)
   })
   use('sheerun/vim-polyglot')
   use('andweeb/presence.nvim')
-  use('nathom/filetype.nvim')
 
   -- Selection
   use('nvim-telescope/telescope.nvim')

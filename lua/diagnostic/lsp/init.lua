@@ -19,7 +19,7 @@ local servers = {
   clangd = require('diagnostic.lsp.clangd'),
   kotlin_language_server = require('diagnostic.lsp.kotlin_language_server'),
   sumneko_lua = require('diagnostic.lsp.sumneko_lua'),
-  prismala = require('diagnostic.lsp.prismals'),
+  prismals = require('diagnostic.lsp.prismals'),
   html = require('diagnostic.lsp.html'),
 }
 

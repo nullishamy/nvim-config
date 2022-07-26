@@ -36,7 +36,6 @@ module('diagnostic/cmp')
 module('treesitter')
 
 module('util/autosave')
-module('util/filetype')
 
 module('util/text/autopairs')
 module('util/text/surround')
