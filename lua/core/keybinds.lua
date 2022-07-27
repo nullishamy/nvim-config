@@ -36,7 +36,7 @@ map('n', '<C-q>q', '<cmd>qa!<cr>')
 -- Terminal
 map('n', '<C-t>', '<cmd>lua require("FTerm").toggle()<cr>')
 map('t', '<C-t>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<cr>')
-map('t', '<Esc>', '<C-\\><C-n>')
+map('t', '<S-Esc>', '<C-\\><C-n>')
 
 -- Trouble
 map('n', '<Leader>t', '<cmd>Trouble workspace_diagnostics<cr>')
@@ -56,7 +56,6 @@ map('n', '<leader>l', '<cmd>FocusSplitRight<CR>')
 map('n', '<C-W>m', '<cmd>WinShift<cr>')
 
 -- Abbreviations
-abbrev('Git', 'Neotree focus source=git_status position=float')
 abbrev('Grep', function()
   require('telescope.builtin').live_grep()
 end)
