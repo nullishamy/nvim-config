@@ -37,10 +37,20 @@ function M.setup(opts)
   M.loaded = true
 end
 
-local function run_associated()
+local function get_entry(path)
   local data = M.data
-  assert(data, 'ran run_associated with nil data')
+  assert(data, 'ran get_entry with nil data')
 
+  for _,val in pairs(data) do
+    if val.path == path then
+      return val
+    end
+
+    return nil
+  end
+end
+
+local function run_associated()
   local cur_buf = util.get_current_buf_path()
 
   if string.len(cur_buf) == 0 then
@@ -52,19 +62,16 @@ local function run_associated()
     return log.warn(string.format('cannot run compile command for an unsaved buffer (path: %s)', cur_buf))
   end
 
-  for _,val in pairs(data) do
-    if val.path == cur_buf then
-      local cmd = val.cmd
+  local val = get_entry(cur_buf)
 
-      -- Double % to escape it for lua pattern matching
-      cmd = string.gsub(cmd, '%%', cur_buf)
-
-      FTerm.scratch({ cmd = cmd })
-      return
-    end
+  if val == nil then
+    return log.info('could not locate compile command for this file')
   end
 
-  log.info('could not locate compile command for this file')
+  -- Double % to escape it for lua pattern matching
+  local cmd = string.gsub(val.cmd, '%%', cur_buf)
+
+  FTerm.scratch({ cmd = cmd })
 end
 
 local function set_command(cmd)
@@ -81,10 +88,25 @@ local function set_command(cmd)
     return
   end
 
-  table.insert(data, {
-    path = path,
-    cmd = cmd
-  })
+  local val = get_entry(path)
+  local exists = val == nil
+  local should_update = false
+
+  if exists then
+    should_update = vim.fn.input('a command already exists for this buffer, do yo want to override it? [y/N]') == 'y'
+  end
+
+  if should_update then
+    assert(exists, 'entry did not exist')
+    assert(val, 'entry did not exist')
+
+    val.cmd = cmd
+  else
+    table.insert(data, {
+      path = path,
+      cmd = cmd
+    })
+  end
 
   util.save_persistence_data(config, data)
 end
