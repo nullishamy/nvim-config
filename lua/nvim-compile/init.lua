@@ -8,7 +8,7 @@ local log = require('nvim-compile.log')
 local FTerm = require('FTerm')
 
 local DEFAULT_OPTS = {
-  data_path = Path:new(vim.fn.stdpath('data'), 'nvim-compile', 'data.json')
+  path = Path:new(vim.fn.stdpath('data'), 'nvim-compile', 'data.json')
 }
 
 local compile = {
@@ -49,8 +49,8 @@ function compile.setup(opts)
   opts = plenary.tbl.apply_defaults(opts, DEFAULT_OPTS)
 
   compile.config = opts
-  compile.datastore = Datastore:new(opts)
 
+  compile.datastore = Datastore:new(opts)
   compile.datastore:init()
 
   set_commands()
@@ -75,7 +75,6 @@ function compile.view()
         val.type == 'workspace' and val.workspace or val.path))
     end,
     v = function(val)
-      local Window = require('plenary.window.float')
 
       local function center(str, bufnr)
         local width = vim.api.nvim_win_get_width(bufnr)
@@ -84,6 +83,7 @@ function compile.view()
       end
 
       -- No border
+      local Window = require('plenary.window.float')
       local window = Window.percentage_range_window(0.25, 0.35, {},
         { border_thickness = { top = 0, right = 0, bot = 0, left = 0 } })
 
@@ -110,7 +110,7 @@ function compile.view()
       return
     end
 
-    local action = vim.fn.input('what would you like to do? [(d)elete, v(iew)] ')
+    local action = vim.fn.input('what would you like to do? (d)elete (v)iew: ')
 
     if action == nil then
       return
@@ -121,6 +121,7 @@ function compile.view()
       return
     end
 
+    -- No nil check needed, we validate above
     actions[action](val, index)
   end)
 end
@@ -132,7 +133,7 @@ local function get_entry(path, is_workspace)
   -- If it's a workspace val, check workspace, and only allow workspace entries, otherwise only check files
   -- This allows for individual files to compile differently even in the precence of a workspace setting
   -- And ensures that 'file' types do not get returned for workspace queries
-  for _, val in pairs(data) do
+  for _, val in pairs(data.data) do
     if is_workspace and val.workspace == path and val.type == 'workspace' then
       return val
     else if not is_workspace and val.path == path and val.type == 'file' then
@@ -168,7 +169,7 @@ local function run_associated()
   -- Double % to escape it for lua pattern matching
   local cmd = string.gsub(val.cmd, '%%', cur_buf)
 
-  FTerm.scratch({ cmd = cmd })
+  FTerm.scratch({ cmd = string.format([[ echo "(nvim-compile) executing '%s' \n" && %s ]], cmd, cmd) })
 end
 
 local function set_command(cmd)

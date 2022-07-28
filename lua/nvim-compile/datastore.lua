@@ -5,8 +5,10 @@ Datastore = {
 local Path = require('plenary.path')
 
 function Datastore:new(config)
-  self.path = config.path
+  self._path = config.path
   self.data = { }
+
+  return self
 end
 
 function Datastore:init()
@@ -15,18 +17,23 @@ function Datastore:init()
   if not path:exists() then
     path:touch({ parents = path:parents() })
     path:write('[]', 'w')
+  else
+    self:read()
   end
+
+  return self
 end
 
 function Datastore:path()
-  return Path:new(self.path)
+  return Path:new(self._path)
 end
 
 function Datastore:read()
   local path = self:path()
   local data = vim.json.decode(path:read())
 
-  return data
+  self.data = data
+  return self
 end
 
 function Datastore:write()
@@ -34,6 +41,7 @@ function Datastore:write()
   local json = vim.json.encode(self.data)
 
   path:write(json, 'w')
+  return self
 end
 
 return Datastore
