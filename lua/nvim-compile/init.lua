@@ -18,6 +18,10 @@ local M = {
 
 local function set_commands()
   vim.cmd('command! -nargs=? Compile unsilent lua require("nvim-compile").run("<args>")')
+
+  -- Not prefixed with compile to allow for shortcuts
+  vim.cmd('command! ViewCommands unsilent lua require("nvim-compile").view()')
+
 end
 
 function M.setup(opts)
@@ -37,17 +41,106 @@ function M.setup(opts)
   M.loaded = true
 end
 
-local function get_entry(path)
+local function prompt_value(prompt, on_select)
+  assert(on_select, 'on_select was not set')
+  assert(prompt, 'prompt was not set')
+  assert(M.data, 'data was not set when calling `prompt_value`')
+
+  -- tbl_values converts from an arbitrary indexable type to a table that select() requires
+  vim.ui.select(vim.tbl_values(M.data), {
+    prompt = prompt,
+    format_item = function(item)
+      -- Remove the workspace portion from the file path
+      -- + 2, 1 indexing & cut the leading slash
+      return string.format('%s (%s)', item.workspace, string.sub(item.path, string.len(item.workspace) + 2))
+    end,
+  }, on_select)
+end
+
+function M.view()
+  if not M.loaded then
+    return log.error('cannot `view` without calling `setup` first!')
+  end
+
+  assert(M.config, 'config was not set when calling `view`')
+  util.init_persistence_data(M.config)
+
+  local action_prompt = {
+    prompt = 'what would you like to do? [(d)elete, v(iew)] '
+  }
+
+  local actions = {
+    d = function(val, index)
+      table.remove(M.data, index)
+      util.save_persistence_data(M.config, M.data)
+      log.info(string.format('removed command for %s %s', val.type == 'workspace' and 'workspace' or 'buffer',
+        val.type == 'workspace' and val.workspace or val.path))
+    end,
+    v = function(val)
+      local Window = require('plenary.window.float')
+
+      local function center(str, bufnr)
+        local width = vim.api.nvim_win_get_width(bufnr)
+        local shift = math.floor(width / 2) - math.floor(string.len(str) / 2)
+        return string.rep(' ', shift) .. str
+      end
+
+      -- No border
+      local window = Window.percentage_range_window(0.25, 0.25, {}, { border_thickness = { top = 0, right = 0, bot = 0, left = 0 } })
+
+      vim.api.nvim_buf_set_lines(window.bufnr, 0, -1, false, {
+        '',
+        center('path:', window.win_id),
+        center(val.path, window.win_id),
+        '',
+        center('workspace:', window.win_id),
+        center(val.workspace, window.win_id),
+        '',
+        center('cmd:', window.win_id),
+        center(val.cmd, window.win_id),
+        '',
+        center('type:', window.win_id),
+        center(val.type, window.win_id),
+        ''
+      })
+    end
+  }
+
+  prompt_value('Commands', function(val, index)
+    if index == nil then
+      return
+    end
+
+    vim.ui.input(action_prompt, function(input)
+      if input == nil then
+        return
+      end
+
+      if not vim.tbl_contains({ 'd', 'v' }, input) then
+        -- Just no-op, its the easiest way to handle invalid input
+        return
+      end
+
+      actions[input](val, index)
+    end)
+
+  end)
+end
+
+local function get_entry(path, is_workspace)
   local data = M.data
   assert(data, 'ran get_entry with nil data')
 
-  for _,val in pairs(data) do
-    if val.path == path then
+  for _, val in pairs(data) do
+    if is_workspace and val.workspace == path then
       return val
+    else if val.path == path then
+        return val
+      end
     end
-
-    return nil
   end
+
+  return nil
 end
 
 local function run_associated()
@@ -62,10 +155,12 @@ local function run_associated()
     return log.warn(string.format('cannot run compile command for an unsaved buffer (path: %s)', cur_buf))
   end
 
-  local val = get_entry(cur_buf)
+  local workspace = vim.fn.getcwd()
+  -- Prioritise per-file commands, or fall back to the workspace
+  local val = get_entry(cur_buf, false) or get_entry(workspace, true)
 
   if val == nil then
-    return log.info('could not locate compile command for this file')
+    return log.info('could not locate compile command for this file or workspace')
   end
 
   -- Double % to escape it for lua pattern matching
@@ -88,27 +183,61 @@ local function set_command(cmd)
     return
   end
 
-  local val = get_entry(path)
-  local exists = val == nil
-  local should_update = false
+  local workspace = vim.fn.getcwd()
 
-  if exists then
-    should_update = vim.fn.input('a command already exists for this buffer, do yo want to override it? [y/N]') == 'y'
-  end
+  local should_set_workspace_prompt = {
+    prompt = 'would you like to set this command for the workspace, or just the file? [W/f] '
+  }
 
-  if should_update then
-    assert(exists, 'entry did not exist')
-    assert(val, 'entry did not exist')
+  vim.ui.input(should_set_workspace_prompt, function(input)
+    if input == nil then
+      return
+    end
 
-    val.cmd = cmd
-  else
+    local should_set_workspace = input == 'w'
+    local val = get_entry(should_set_workspace and workspace or path, should_set_workspace)
+    local exists = val ~= nil
+
+    if exists then
+      local command_exists_prompt = {
+        prompt = string.format(
+          'a command already exists for this %s, do you want to override it? [y/N] ',
+          should_set_workspace and 'workspace' or 'buffer'
+        )
+      }
+
+      vim.ui.input(command_exists_prompt, function(command_input)
+        if command_input == nil then
+          return
+        end
+
+        local should_update = command_input == 'y'
+
+        if should_update then
+          assert(exists, 'entry did not exist (exists)')
+          assert(val, 'entry did not exist (val)')
+
+          val.cmd = cmd
+
+          return
+        end
+      end)
+
+      return
+    end
+
+
+    -- If it doesn't exist, set it
     table.insert(data, {
       path = path,
-      cmd = cmd
+      cmd = cmd,
+      -- Set the workspace regardless, we need to know for the checks above
+      workspace = workspace,
+      type = should_set_workspace and 'workspace' or 'file'
     })
-  end
 
-  util.save_persistence_data(config, data)
+    util.save_persistence_data(config, data)
+  end)
 end
 
 function M.run(...)
@@ -133,6 +262,5 @@ function M.run(...)
     set_command(table.concat(args, ' '))
   end
 end
-
 
 return M
