@@ -1,6 +1,6 @@
 return {
   cmd = { 'rust-analyzer' },
-  post_init = function (config)
+  post_init = function(config)
     require('rust-tools').setup({
       server = {
         autostart = true,
@@ -18,5 +18,5 @@ return {
         },
       },
     })
-  end
+  end,
 }

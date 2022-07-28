@@ -8,7 +8,7 @@ require('nvim-lsp-installer').setup({
 local util = require('diagnostic.lsp.util')
 
 local servers = {
-  null_ls = require('diagnostic.lsp.null-ls'),
+  -- null_ls = require('diagnostic.lsp.null-ls'),
   tsserver = require('diagnostic.lsp.tsserver'),
   bashls = require('diagnostic.lsp.bashls'),
   cssls = require('diagnostic.lsp.cssls'),
@@ -25,7 +25,7 @@ local servers = {
 
 local generate_on_attach = function(config)
   return function(client, buf)
-    if (config.disable_formatting) then
+    if config.disable_formatting then
       client.server_capabilities.document_formatting = false
       client.server_capabilities.document_range_formatting = false
     end

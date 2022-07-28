@@ -1,3 +1,3 @@
 require('nvim-compile').setup({
-  -- Options here 
+  -- Options here
 })

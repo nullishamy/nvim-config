@@ -2,6 +2,7 @@ local plenary = require('plenary')
 local Path = plenary.path
 
 local util = require('nvim-compile.util')
+local Datastore = require('nvim-compile.datastore')
 local log = require('nvim-compile.log')
 
 local FTerm = require('FTerm')
@@ -10,10 +11,10 @@ local DEFAULT_OPTS = {
   data_path = Path:new(vim.fn.stdpath('data'), 'nvim-compile', 'data.json')
 }
 
-local M = {
+local compile = {
   loaded = false,
   config = nil,
-  data = nil
+  datastore = nil,
 }
 
 local function set_commands()
@@ -24,30 +25,13 @@ local function set_commands()
 
 end
 
-function M.setup(opts)
-  if M.loaded then
-    return
-  end
-
-  opts = plenary.tbl.apply_defaults(opts, DEFAULT_OPTS)
-
-  M.config = opts
-  util.init_persistence_data(opts)
-
-  M.data = util.get_persistence_data(opts)
-
-  set_commands()
-
-  M.loaded = true
-end
-
-local function prompt_value(prompt, on_select)
+local function show_select(prompt, on_select)
   assert(on_select, 'on_select was not set')
   assert(prompt, 'prompt was not set')
-  assert(M.data, 'data was not set when calling `prompt_value`')
+  assert(compile.datastore, 'data was not set when calling `prompt_value`')
 
   -- tbl_values converts from an arbitrary indexable type to a table that select() requires
-  vim.ui.select(vim.tbl_values(M.data), {
+  vim.ui.select(vim.tbl_values(compile.datastore.data), {
     prompt = prompt,
     format_item = function(item)
       -- Remove the workspace portion from the file path
@@ -57,22 +41,36 @@ local function prompt_value(prompt, on_select)
   }, on_select)
 end
 
-function M.view()
-  if not M.loaded then
+function compile.setup(opts)
+  if compile.loaded then
+    return
+  end
+
+  opts = plenary.tbl.apply_defaults(opts, DEFAULT_OPTS)
+
+  compile.config = opts
+  compile.datastore = Datastore:new(opts)
+
+  compile.datastore:init()
+
+  set_commands()
+
+  compile.loaded = true
+end
+
+function compile.view()
+  if not compile.loaded then
     return log.error('cannot `view` without calling `setup` first!')
   end
 
-  assert(M.config, 'config was not set when calling `view`')
-  util.init_persistence_data(M.config)
-
-  local action_prompt = {
-    prompt = 'what would you like to do? [(d)elete, v(iew)] '
-  }
+  assert(compile.config, 'config was not set when calling `view`')
+  compile.datastore:init()
 
   local actions = {
     d = function(val, index)
-      table.remove(M.data, index)
-      util.save_persistence_data(M.config, M.data)
+      table.remove(compile.datastore.data, index)
+      compile.datastore:write()
+
       log.info(string.format('removed command for %s %s', val.type == 'workspace' and 'workspace' or 'buffer',
         val.type == 'workspace' and val.workspace or val.path))
     end,
@@ -86,7 +84,8 @@ function M.view()
       end
 
       -- No border
-      local window = Window.percentage_range_window(0.25, 0.25, {}, { border_thickness = { top = 0, right = 0, bot = 0, left = 0 } })
+      local window = Window.percentage_range_window(0.25, 0.35, {},
+        { border_thickness = { top = 0, right = 0, bot = 0, left = 0 } })
 
       vim.api.nvim_buf_set_lines(window.bufnr, 0, -1, false, {
         '',
@@ -96,7 +95,7 @@ function M.view()
         center('workspace:', window.win_id),
         center(val.workspace, window.win_id),
         '',
-        center('cmd:', window.win_id),
+        center('runs:', window.win_id),
         center(val.cmd, window.win_id),
         '',
         center('type:', window.win_id),
@@ -106,35 +105,37 @@ function M.view()
     end
   }
 
-  prompt_value('Commands', function(val, index)
+  show_select('Commands', function(val, index)
     if index == nil then
       return
     end
 
-    vim.ui.input(action_prompt, function(input)
-      if input == nil then
-        return
-      end
+    local action = vim.fn.input('what would you like to do? [(d)elete, v(iew)] ')
 
-      if not vim.tbl_contains({ 'd', 'v' }, input) then
-        -- Just no-op, its the easiest way to handle invalid input
-        return
-      end
+    if action == nil then
+      return
+    end
 
-      actions[input](val, index)
-    end)
+    if not vim.tbl_contains({ 'd', 'v' }, action) then
+      -- Just no-op, its the easiest way to handle invalid action
+      return
+    end
 
+    actions[action](val, index)
   end)
 end
 
 local function get_entry(path, is_workspace)
-  local data = M.data
+  local data = compile.datastore
   assert(data, 'ran get_entry with nil data')
 
+  -- If it's a workspace val, check workspace, and only allow workspace entries, otherwise only check files
+  -- This allows for individual files to compile differently even in the precence of a workspace setting
+  -- And ensures that 'file' types do not get returned for workspace queries
   for _, val in pairs(data) do
-    if is_workspace and val.workspace == path then
+    if is_workspace and val.workspace == path and val.type == 'workspace' then
       return val
-    else if val.path == path then
+    else if not is_workspace and val.path == path and val.type == 'file' then
         return val
       end
     end
@@ -144,7 +145,7 @@ local function get_entry(path, is_workspace)
 end
 
 local function run_associated()
-  local cur_buf = util.get_current_buf_path()
+  local cur_buf = util.buf_path()
 
   if string.len(cur_buf) == 0 then
     cur_buf = 'unknown'
@@ -155,7 +156,8 @@ local function run_associated()
     return log.warn(string.format('cannot run compile command for an unsaved buffer (path: %s)', cur_buf))
   end
 
-  local workspace = vim.fn.getcwd()
+  local workspace = util.workspace_path()
+
   -- Prioritise per-file commands, or fall back to the workspace
   local val = get_entry(cur_buf, false) or get_entry(workspace, true)
 
@@ -170,83 +172,72 @@ local function run_associated()
 end
 
 local function set_command(cmd)
-  local data = M.data
-  assert(data, 'ran set_command with nil data')
+  local config = compile.config
+  assert(config, 'ran set_command with nil config')
 
-  local config = M.config
-  assert(data, 'ran set_command with nil config')
-
-  local path = util.get_current_buf_path()
+  local path = util.buf_path()
 
   if string.len(path) == 0 then
     log.warn('cannot set compile command for an un-named buffer')
     return
   end
 
-  local workspace = vim.fn.getcwd()
+  local workspace = util.workspace_path()
 
-  local should_set_workspace_prompt = {
-    prompt = 'would you like to set this command for the workspace, or just the file? [W/f] '
-  }
+  local input = vim.fn.input('would you like to set this command for the (W)orkspace, or just the (f)ile? ')
 
-  vim.ui.input(should_set_workspace_prompt, function(input)
-    if input == nil then
+  if input == nil then
+    return
+  end
+
+  local should_set_workspace = input == 'w'
+  local val = get_entry(should_set_workspace and workspace or path, should_set_workspace)
+  local exists = val ~= nil
+
+  if exists then
+    local command_input = vim.fn.input(
+      string.format(
+        'a command already exists for this %s, do you want to override it? [y/N] ',
+        should_set_workspace and 'workspace' or 'buffer'
+      )
+    )
+
+    if command_input == nil then
       return
     end
 
-    local should_set_workspace = input == 'w'
-    local val = get_entry(should_set_workspace and workspace or path, should_set_workspace)
-    local exists = val ~= nil
+    local should_update = command_input == 'y'
 
-    if exists then
-      local command_exists_prompt = {
-        prompt = string.format(
-          'a command already exists for this %s, do you want to override it? [y/N] ',
-          should_set_workspace and 'workspace' or 'buffer'
-        )
-      }
+    if should_update then
+      assert(exists, 'entry did not exist (exists)')
+      assert(val, 'entry did not exist (val)')
 
-      vim.ui.input(command_exists_prompt, function(command_input)
-        if command_input == nil then
-          return
-        end
-
-        local should_update = command_input == 'y'
-
-        if should_update then
-          assert(exists, 'entry did not exist (exists)')
-          assert(val, 'entry did not exist (val)')
-
-          val.cmd = cmd
-
-          return
-        end
-      end)
-
-      return
+      val.cmd = cmd
     end
 
+    return
+  end
 
-    -- If it doesn't exist, set it
-    table.insert(data, {
-      path = path,
-      cmd = cmd,
-      -- Set the workspace regardless, we need to know for the checks above
-      workspace = workspace,
-      type = should_set_workspace and 'workspace' or 'file'
-    })
 
-    util.save_persistence_data(config, data)
-  end)
+  -- If it doesn't exist, set it
+  table.insert(compile.datastore.data, {
+    path = path,
+    cmd = cmd,
+    -- Set the workspace regardless, we need to know for the checks above
+    workspace = workspace,
+    type = should_set_workspace and 'workspace' or 'file'
+  })
+
+  compile.datastore:write()
 end
 
-function M.run(...)
-  if not M.loaded then
+function compile.run(...)
+  if not compile.loaded then
     return log.error('cannot `run` without calling `setup` first!')
   end
 
   -- Init here too, in case the file was deleted after `setup` was called
-  util.init_persistence_data(M.config)
+  compile.datastore:init()
 
   local args = { ... }
 
@@ -263,4 +254,4 @@ function M.run(...)
   end
 end
 
-return M
+return compile
