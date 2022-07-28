@@ -5,10 +5,11 @@ local util = require('nvim-compile.util')
 local Datastore = require('nvim-compile.datastore')
 local log = require('nvim-compile.log')
 
-local FTerm = require('FTerm')
-
 local DEFAULT_OPTS = {
-  path = Path:new(vim.fn.stdpath('data'), 'nvim-compile', 'data.json')
+  path = Path:new(vim.fn.stdpath('data'), 'nvim-compile', 'data.json'),
+  open_with = function (cmd)
+    require('FTerm').scratch({ cmd = cmd })
+  end
 }
 
 local compile = {
@@ -173,7 +174,7 @@ local function run_associated()
   local cmd = string.gsub(val.cmd, '%%', cur_buf)
 
   -- Log the command we're running so the user can see it
-  FTerm.scratch({ cmd = string.format([[ echo "(nvim-compile) executing '%s' \n" && %s ]], cmd, cmd) })
+  compile.config.open_with(string.format([[ echo "(nvim-compile) executing '%s' \n" && %s ]], cmd, cmd))
 end
 
 local function set_command(cmd)
