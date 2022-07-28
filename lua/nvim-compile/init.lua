@@ -36,7 +36,7 @@ local function show_select(prompt, on_select)
     format_item = function(item)
       -- Remove the workspace portion from the file path
       -- + 2, 1 indexing & cut the leading slash
-      return string.format('%s (%s)', item.workspace, string.sub(item.path, string.len(item.workspace) + 2))
+      return string.format('%s (%s) [%s]', item.workspace, string.sub(item.path, string.len(item.workspace) + 2), item.type == 'workspace' and 'W' or 'F')
     end,
   }, on_select)
 end
@@ -106,6 +106,9 @@ function compile.view()
   }
 
   show_select('Commands', function(val, index)
+    -- TODO: improve this UX
+    -- Probably by adding custom binds to the window that we spawm with `v`
+    -- And adding a small help text at the bottom
     if index == nil then
       return
     end
@@ -169,6 +172,7 @@ local function run_associated()
   -- Double % to escape it for lua pattern matching
   local cmd = string.gsub(val.cmd, '%%', cur_buf)
 
+  -- Log the command we're running so the user can see it
   FTerm.scratch({ cmd = string.format([[ echo "(nvim-compile) executing '%s' \n" && %s ]], cmd, cmd) })
 end
 
