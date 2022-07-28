@@ -2,6 +2,14 @@ local M = {}
 
 local Path = require('plenary.path')
 
+function M.lines(str)
+  local result = {}
+  for line in str:gmatch '[^\n]+' do
+    table.insert(result, line)
+  end
+  return result
+end
+
 function M.get_persistence_path(config)
     return Path:new(config.data_path)
 end
@@ -29,7 +37,7 @@ function M.init_persistence_data(config)
 
     if not path:exists() then
         path:touch({ parents = path:parents() })
-        path:write('{}', 'w')
+        path:write('[]', 'w')
     end
 end
 
