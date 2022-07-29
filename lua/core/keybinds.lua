@@ -22,10 +22,10 @@ map('', '<C-l>', '<Plug>(cokeline-focus-next)')
 map('', '<Leader>q', '<cmd>Bdelete<cr>')
 
 -- Telescope & tree
-map('n', '<Leader>ff', '<cmd>Telescope find_files path_display={"smart"}<cr>')
-map('n', '<Leader>fo', '<cmd>Telescope buffers path_display={"smart"}<cr>')
-map('n', '<Leader>fh', '<cmd>Telescope help_tags path_display={"smart"}<cr>')
-map('n', '<Leader>fg', '<cmd>Telescope live_grep path_display={"smart"}<cr>')
+map('n', '<Leader>ff', '<cmd>Telescope find_files path_display={"truncate"}<cr>')
+map('n', '<Leader>fo', '<cmd>Telescope buffers path_display={"truncate"}<cr>')
+map('n', '<Leader>fh', '<cmd>Telescope help_tags path_display={"truncate"}<cr>')
+map('n', '<Leader>fg', '<cmd>Telescope live_grep path_display={"truncate"}<cr>')
 map('n', '<Leader>g', '<cmd>Neotree focus reveal<cr>')
 
 -- Jump to start / end
