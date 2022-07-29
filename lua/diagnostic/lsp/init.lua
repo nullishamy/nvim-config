@@ -21,6 +21,7 @@ local servers = {
   sumneko_lua = require('diagnostic.lsp.sumneko_lua'),
   prismals = require('diagnostic.lsp.prismals'),
   html = require('diagnostic.lsp.html'),
+  gopls = require('diagnostic.lsp.gopls')
 }
 
 local generate_on_attach = function(config)
