@@ -48,10 +48,7 @@ local lazygit = fterm:new({
 vim.keymap.set('n', '<C-g>', function()
   lazygit:toggle()
 end)
-vim.keymap.set('t', '<C-g>', function()
-  lazygit:toggle()
-end)
 
-require('utils').abbrev('Git', function()
+vim.keymap.set('t', '<C-g>', function()
   lazygit:toggle()
 end)
