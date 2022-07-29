@@ -21,9 +21,11 @@ map('', '<C-h>', '<Plug>(cokeline-focus-prev)')
 map('', '<C-l>', '<Plug>(cokeline-focus-next)')
 map('', '<Leader>q', '<cmd>Bdelete<cr>')
 
--- Navigation  controls
-map('', '<Leader>f', '<cmd>Telescope find_files<cr>')
-map('n', '<Leader>o', '<cmd>Telescope buffers<cr>')
+-- Telescope & tree
+map('n', '<Leader>ff', '<cmd>Telescope find_files path_display={"smart"}<cr>')
+map('n', '<Leader>fo', '<cmd>Telescope buffers path_display={"smart"}<cr>')
+map('n', '<Leader>fh', '<cmd>Telescope help_tags path_display={"smart"}<cr>')
+map('n', '<Leader>fg', '<cmd>Telescope live_grep path_display={"smart"}<cr>')
 map('n', '<Leader>g', '<cmd>Neotree focus reveal<cr>')
 
 -- Jump to start / end
@@ -56,9 +58,6 @@ map('n', '<leader>l', '<cmd>FocusSplitRight<CR>')
 map('n', '<C-W>m', '<cmd>WinShift<cr>')
 
 -- Abbreviations
-abbrev('Grep', function()
-  require('telescope.builtin').live_grep()
-end)
 abbrev('OrganiseImports', function()
   require('diagnostic.util').organize_imports()
 end)
