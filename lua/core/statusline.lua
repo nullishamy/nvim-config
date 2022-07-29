@@ -1,4 +1,4 @@
-local one_dark_deep = {
+local colors = {
   black = '#0c0e15',
   bg0 = '#1a212e',
   bg1 = '#21283b',
@@ -25,17 +25,6 @@ local one_dark_deep = {
   diff_delete = '#331c1e',
   diff_change = '#102b40',
   diff_text = '#1c4a6e',
-}
-
-local colors = {
-  bg = '#2e3440',
-  fg = '#d8dee9',
-  green = one_dark_deep.green,
-  orange = one_dark_deep.orange,
-  blue = one_dark_deep.blue,
-  yellow = one_dark_deep.yellow,
-  cyan = one_dark_deep.cyan,
-  red = one_dark_deep.red,
 }
 
 local conditions = {
@@ -157,7 +146,7 @@ ins_left({
 ins_right({
   'branch',
   icon = '',
-  color = { fg = one_dark_deep.purple, gui = 'bold' },
+  color = { fg = colors.purple, gui = 'bold' },
 })
 
 ins_right({
@@ -173,7 +162,7 @@ ins_right({
 
 ins_right({
   time,
-  color = { fg = one_dark_deep.fg, gui = 'bold' },
+  color = { fg = colors.fg, gui = 'bold' },
 })
 
 require('lualine').setup(config)
